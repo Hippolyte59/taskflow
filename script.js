@@ -86,19 +86,6 @@ const parseChecklist = (value) =>
     .filter(Boolean)
     .map((text) => ({ text, done: false }));
 
-const escapeHtml = (value) => {
-  const str = String(value ?? "");
-  const map = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;",
-    "`": "&#096;",
-  };
-  return str.replace(/[&<>"'`]/g, (char) => map[char]);
-};
-
 const mergeChecklist = (existing, nextLines) => {
   const lookup = new Map(existing.map((item) => [item.text, item.done]));
   return nextLines.map((text) => ({
@@ -145,6 +132,13 @@ const animateListUpdate = () => {
   }, 220);
 };
 
+const createEl = (tag, className, text) => {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+  return element;
+};
+
 const renderTasks = () => {
   animateListUpdate();
 
@@ -174,105 +168,151 @@ const renderTasks = () => {
 
     if (editingId === task.id) {
       const checklistLines = task.checklist.map((item) => item.text).join("\n");
-      const safeTitle = escapeHtml(task.title);
-      const safeDescription = escapeHtml(task.description || "");
-      const safeTags = escapeHtml(task.tags.join(", "));
-      const safeChecklist = escapeHtml(checklistLines);
-      const safeDueDate = escapeHtml(task.dueDate || "");
-      item.innerHTML = `
-        <div class="task-edit">
-          <label>
-            Titre
-            <input data-edit="title" type="text" value="${safeTitle}" />
-          </label>
-          <label>
-            Description
-            <textarea data-edit="description" rows="3">${safeDescription}</textarea>
-          </label>
-          <label>
-            Etiquettes
-            <input data-edit="tags" type="text" value="${safeTags}" />
-          </label>
-          <label>
-            Checklist
-            <textarea data-edit="checklist" rows="4">${safeChecklist}</textarea>
-          </label>
-          <div class="row">
-            <label>
-              Priorite
-              <select data-edit="priority">
-                <option value="low" ${task.priority === "low" ? "selected" : ""}>Basse</option>
-                <option value="medium" ${task.priority === "medium" ? "selected" : ""}>Moyenne</option>
-                <option value="high" ${task.priority === "high" ? "selected" : ""}>Haute</option>
-              </select>
-            </label>
-            <label>
-              Echeance
-              <input data-edit="dueDate" type="date" value="${safeDueDate}" />
-            </label>
-          </div>
-          <div class="edit-actions">
-            <button class="primary ripple" data-action="save" type="button">Enregistrer</button>
-            <button class="ghost ripple" data-action="cancel" type="button">Annuler</button>
-          </div>
-        </div>
-      `;
-    } else {
-      const safeTitle = escapeHtml(task.title);
-      const safeDescription = escapeHtml(task.description || "Aucune description");
-      const tags = task.tags.length
-        ? task.tags
-            .map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`)
-            .join("")
-        : "<span class=\"tag\">Sans etiquette</span>";
-      const checklist = task.checklist.length
-        ? `
-          <ul class="checklist">
-            ${task.checklist
-              .map(
-                (item, itemIndex) => `
-                <li>
-                  <label>
-                    <input data-action="check-item" data-index="${itemIndex}" type="checkbox" ${
-                      item.done ? "checked" : ""
-                    } />
-                    <span>${escapeHtml(item.text)}</span>
-                  </label>
-                </li>
-              `
-              )
-              .join("")}
-          </ul>
-        `
-        : "";
+      const editWrap = createEl("div", "task-edit");
 
-      item.innerHTML = `
-        <div class="task-header">
-          <div>
-            <div class="task-title">${safeTitle}</div>
-            <div class="task-meta">
-              <span class="badge ${task.priority}">Priorite ${priorityLabel(
-                task.priority
-              )}</span>
-              <span class="badge">Echeance ${formatDate(task.dueDate)}</span>
-            </div>
-          </div>
-          <div class="task-actions">
-            <button class="ripple" data-action="toggle" aria-label="Basculer terminee">
-              ${task.completed ? "Reouvrir" : "Terminer"}
-            </button>
-            <button class="ripple" data-action="edit" aria-label="Editer">
-              Editer
-            </button>
-            <button class="ripple" data-action="delete" aria-label="Supprimer">
-              Supprimer
-            </button>
-          </div>
-        </div>
-        <p class="task-description">${safeDescription}</p>
-        <div class="tag-list">${tags}</div>
-        ${checklist}
-      `;
+      const titleLabel = document.createElement("label");
+      titleLabel.append("Titre");
+      const titleInputEl = document.createElement("input");
+      titleInputEl.type = "text";
+      titleInputEl.dataset.edit = "title";
+      titleInputEl.value = task.title;
+      titleLabel.append(titleInputEl);
+
+      const descLabel = document.createElement("label");
+      descLabel.append("Description");
+      const descTextarea = document.createElement("textarea");
+      descTextarea.rows = 3;
+      descTextarea.dataset.edit = "description";
+      descTextarea.value = task.description || "";
+      descLabel.append(descTextarea);
+
+      const tagsLabel = document.createElement("label");
+      tagsLabel.append("Etiquettes");
+      const tagsInputEl = document.createElement("input");
+      tagsInputEl.type = "text";
+      tagsInputEl.dataset.edit = "tags";
+      tagsInputEl.value = task.tags.join(", ");
+      tagsLabel.append(tagsInputEl);
+
+      const checklistLabel = document.createElement("label");
+      checklistLabel.append("Checklist");
+      const checklistTextarea = document.createElement("textarea");
+      checklistTextarea.rows = 4;
+      checklistTextarea.dataset.edit = "checklist";
+      checklistTextarea.value = checklistLines;
+      checklistLabel.append(checklistTextarea);
+
+      const row = createEl("div", "row");
+
+      const priorityLabelEl = document.createElement("label");
+      priorityLabelEl.append("Priorite");
+      const prioritySelect = document.createElement("select");
+      prioritySelect.dataset.edit = "priority";
+      [
+        { value: "low", label: "Basse" },
+        { value: "medium", label: "Moyenne" },
+        { value: "high", label: "Haute" },
+      ].forEach((optionData) => {
+        const option = document.createElement("option");
+        option.value = optionData.value;
+        option.textContent = optionData.label;
+        if (task.priority === optionData.value) {
+          option.selected = true;
+        }
+        prioritySelect.appendChild(option);
+      });
+      priorityLabelEl.append(prioritySelect);
+
+      const dueLabel = document.createElement("label");
+      dueLabel.append("Echeance");
+      const dueInputEl = document.createElement("input");
+      dueInputEl.type = "date";
+      dueInputEl.dataset.edit = "dueDate";
+      dueInputEl.value = task.dueDate || "";
+      dueLabel.append(dueInputEl);
+
+      row.append(priorityLabelEl, dueLabel);
+
+      const actions = createEl("div", "edit-actions");
+      const saveButton = createEl("button", "primary ripple", "Enregistrer");
+      saveButton.dataset.action = "save";
+      saveButton.type = "button";
+      const cancelButton = createEl("button", "ghost ripple", "Annuler");
+      cancelButton.dataset.action = "cancel";
+      cancelButton.type = "button";
+      actions.append(saveButton, cancelButton);
+
+      editWrap.append(titleLabel, descLabel, tagsLabel, checklistLabel, row, actions);
+      item.appendChild(editWrap);
+    } else {
+      const header = createEl("div", "task-header");
+      const left = document.createElement("div");
+      const title = createEl("div", "task-title", task.title);
+
+      const meta = createEl("div", "task-meta");
+      const priorityBadge = createEl(
+        "span",
+        `badge ${task.priority}`,
+        `Priorite ${priorityLabel(task.priority)}`
+      );
+      const dueBadge = createEl("span", "badge", `Echeance ${formatDate(task.dueDate)}`);
+      meta.append(priorityBadge, dueBadge);
+      left.append(title, meta);
+
+      const actions = createEl("div", "task-actions");
+      const toggleButton = createEl(
+        "button",
+        "ripple",
+        task.completed ? "Reouvrir" : "Terminer"
+      );
+      toggleButton.dataset.action = "toggle";
+      toggleButton.setAttribute("aria-label", "Basculer terminee");
+
+      const editButton = createEl("button", "ripple", "Editer");
+      editButton.dataset.action = "edit";
+      editButton.setAttribute("aria-label", "Editer");
+
+      const deleteButton = createEl("button", "ripple", "Supprimer");
+      deleteButton.dataset.action = "delete";
+      deleteButton.setAttribute("aria-label", "Supprimer");
+
+      actions.append(toggleButton, editButton, deleteButton);
+      header.append(left, actions);
+
+      const description = createEl(
+        "p",
+        "task-description",
+        task.description || "Aucune description"
+      );
+
+      const tagList = createEl("div", "tag-list");
+      if (task.tags.length) {
+        task.tags.forEach((tag) => {
+          tagList.appendChild(createEl("span", "tag", tag));
+        });
+      } else {
+        tagList.appendChild(createEl("span", "tag", "Sans etiquette"));
+      }
+
+      item.append(header, description, tagList);
+
+      if (task.checklist.length) {
+        const checklist = createEl("ul", "checklist");
+        task.checklist.forEach((checkItem, itemIndex) => {
+          const listItem = document.createElement("li");
+          const label = document.createElement("label");
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.dataset.action = "check-item";
+          checkbox.dataset.index = String(itemIndex);
+          checkbox.checked = Boolean(checkItem.done);
+          const text = createEl("span", "", checkItem.text);
+          label.append(checkbox, text);
+          listItem.appendChild(label);
+          checklist.appendChild(listItem);
+        });
+        item.appendChild(checklist);
+      }
     }
 
     taskList.appendChild(item);
