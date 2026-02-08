@@ -156,7 +156,9 @@ const renderTasks = () => {
     return true;
   });
 
-  taskList.innerHTML = "";
+  while (taskList.firstChild) {
+    taskList.removeChild(taskList.firstChild);
+  }
 
   const sorted = sortTasks(filtered);
 
