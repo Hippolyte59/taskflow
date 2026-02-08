@@ -1,10 +1,15 @@
 # TaskFlow
 
-[![License](https://img.shields.io/github/license/user/taskflow)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/user/taskflow)](https://github.com/user/taskflow/commits)
-[![Stars](https://img.shields.io/github/stars/user/taskflow?style=social)](https://github.com/user/taskflow/stargazers)
-[![Issues](https://img.shields.io/github/issues/user/taskflow)](https://github.com/user/taskflow/issues)
-[![PRs](https://img.shields.io/github/issues-pr/user/taskflow)](https://github.com/user/taskflow/pulls)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/)
+[![Status](https://img.shields.io/badge/Status-Active-success.svg)](https://github.com/)
+[![Made with](https://img.shields.io/badge/Made%20with-HTML%2FCSS%2FJS-orange.svg)](https://github.com/)
+[![No Dependencies](https://img.shields.io/badge/Dependencies-None-informational.svg)](https://github.com/)
+[![LocalStorage](https://img.shields.io/badge/Storage-LocalStorage-lightgrey.svg)](https://developer.mozilla.org/docs/Web/API/Window/localStorage)
+[![Responsive](https://img.shields.io/badge/Responsive-Yes-ff69b4.svg)](https://github.com/)
+[![Dark Mode](https://img.shields.io/badge/Dark%20Mode-Yes-2ea44f.svg)](https://github.com/)
+[![Accessibility](https://img.shields.io/badge/Accessibility-Considered-6f42c1.svg)](https://github.com/)
+[![Open Source](https://img.shields.io/badge/Open%20Source-Yes-1f6feb.svg)](https://github.com/)
 
 Gestionnaire de taches intelligent en HTML, CSS et JavaScript.
 TaskFlow met l'accent sur la rapidite, la clarte visuelle, et la sauvegarde locale.
