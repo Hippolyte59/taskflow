@@ -86,6 +86,19 @@ const parseChecklist = (value) =>
     .filter(Boolean)
     .map((text) => ({ text, done: false }));
 
+const escapeHtml = (value) => {
+  const str = String(value ?? "");
+  const map = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+    "`": "&#096;",
+  };
+  return str.replace(/[&<>"'`]/g, (char) => map[char]);
+};
+
 const mergeChecklist = (existing, nextLines) => {
   const lookup = new Map(existing.map((item) => [item.text, item.done]));
   return nextLines.map((text) => ({
@@ -161,12 +174,16 @@ const renderTasks = () => {
 
     if (editingId === task.id) {
       const checklistLines = task.checklist.map((item) => item.text).join("\n");
-      const safeDescription = task.description || "";
+      const safeTitle = escapeHtml(task.title);
+      const safeDescription = escapeHtml(task.description || "");
+      const safeTags = escapeHtml(task.tags.join(", "));
+      const safeChecklist = escapeHtml(checklistLines);
+      const safeDueDate = escapeHtml(task.dueDate || "");
       item.innerHTML = `
         <div class="task-edit">
           <label>
             Titre
-            <input data-edit="title" type="text" value="${task.title}" />
+            <input data-edit="title" type="text" value="${safeTitle}" />
           </label>
           <label>
             Description
@@ -174,11 +191,11 @@ const renderTasks = () => {
           </label>
           <label>
             Etiquettes
-            <input data-edit="tags" type="text" value="${task.tags.join(", ")}" />
+            <input data-edit="tags" type="text" value="${safeTags}" />
           </label>
           <label>
             Checklist
-            <textarea data-edit="checklist" rows="4">${checklistLines}</textarea>
+            <textarea data-edit="checklist" rows="4">${safeChecklist}</textarea>
           </label>
           <div class="row">
             <label>
@@ -191,7 +208,7 @@ const renderTasks = () => {
             </label>
             <label>
               Echeance
-              <input data-edit="dueDate" type="date" value="${task.dueDate || ""}" />
+              <input data-edit="dueDate" type="date" value="${safeDueDate}" />
             </label>
           </div>
           <div class="edit-actions">
@@ -201,8 +218,12 @@ const renderTasks = () => {
         </div>
       `;
     } else {
+      const safeTitle = escapeHtml(task.title);
+      const safeDescription = escapeHtml(task.description || "Aucune description");
       const tags = task.tags.length
-        ? task.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")
+        ? task.tags
+            .map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`)
+            .join("")
         : "<span class=\"tag\">Sans etiquette</span>";
       const checklist = task.checklist.length
         ? `
@@ -215,7 +236,7 @@ const renderTasks = () => {
                     <input data-action="check-item" data-index="${itemIndex}" type="checkbox" ${
                       item.done ? "checked" : ""
                     } />
-                    <span>${item.text}</span>
+                    <span>${escapeHtml(item.text)}</span>
                   </label>
                 </li>
               `
@@ -228,7 +249,7 @@ const renderTasks = () => {
       item.innerHTML = `
         <div class="task-header">
           <div>
-            <div class="task-title">${task.title}</div>
+            <div class="task-title">${safeTitle}</div>
             <div class="task-meta">
               <span class="badge ${task.priority}">Priorite ${priorityLabel(
                 task.priority
@@ -248,7 +269,7 @@ const renderTasks = () => {
             </button>
           </div>
         </div>
-        <p class="task-description">${task.description || "Aucune description"}</p>
+        <p class="task-description">${safeDescription}</p>
         <div class="tag-list">${tags}</div>
         ${checklist}
       `;
@@ -514,3 +535,4 @@ document.addEventListener("click", (event) => {
 });
 
 init();
+ 
