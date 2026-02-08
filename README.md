@@ -1,15 +1,24 @@
 # TaskFlow
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/)
-[![Status](https://img.shields.io/badge/Status-Active-success.svg)](https://github.com/)
-[![Made with](https://img.shields.io/badge/Made%20with-HTML%2FCSS%2FJS-orange.svg)](https://github.com/)
-[![No Dependencies](https://img.shields.io/badge/Dependencies-None-informational.svg)](https://github.com/)
+[![License](https://img.shields.io/github/license/Hippolyte59/taskflow)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/Hippolyte59/taskflow?display_name=tag)](https://github.com/Hippolyte59/taskflow/releases)
+[![Last Commit](https://img.shields.io/github/last-commit/Hippolyte59/taskflow)](https://github.com/Hippolyte59/taskflow/commits)
+[![Stars](https://img.shields.io/github/stars/Hippolyte59/taskflow?style=social)](https://github.com/Hippolyte59/taskflow/stargazers)
+[![Forks](https://img.shields.io/github/forks/Hippolyte59/taskflow?style=social)](https://github.com/Hippolyte59/taskflow/network/members)
+[![Issues](https://img.shields.io/github/issues/Hippolyte59/taskflow)](https://github.com/Hippolyte59/taskflow/issues)
+[![PRs](https://img.shields.io/github/issues-pr/Hippolyte59/taskflow)](https://github.com/Hippolyte59/taskflow/pulls)
+[![Contributors](https://img.shields.io/github/contributors/Hippolyte59/taskflow)](https://github.com/Hippolyte59/taskflow/graphs/contributors)
+[![Repo Size](https://img.shields.io/github/repo-size/Hippolyte59/taskflow)](https://github.com/Hippolyte59/taskflow)
+[![Top Language](https://img.shields.io/github/languages/top/Hippolyte59/taskflow)](https://github.com/Hippolyte59/taskflow)
+[![Code Size](https://img.shields.io/github/languages/code-size/Hippolyte59/taskflow)](https://github.com/Hippolyte59/taskflow)
+[![Status](https://img.shields.io/badge/Status-Active-success.svg)](https://github.com/Hippolyte59/taskflow)
+[![Made with](https://img.shields.io/badge/Made%20with-HTML%2FCSS%2FJS-orange.svg)](https://github.com/Hippolyte59/taskflow)
+[![No Dependencies](https://img.shields.io/badge/Dependencies-None-informational.svg)](https://github.com/Hippolyte59/taskflow)
 [![LocalStorage](https://img.shields.io/badge/Storage-LocalStorage-lightgrey.svg)](https://developer.mozilla.org/docs/Web/API/Window/localStorage)
-[![Responsive](https://img.shields.io/badge/Responsive-Yes-ff69b4.svg)](https://github.com/)
-[![Dark Mode](https://img.shields.io/badge/Dark%20Mode-Yes-2ea44f.svg)](https://github.com/)
-[![Accessibility](https://img.shields.io/badge/Accessibility-Considered-6f42c1.svg)](https://github.com/)
-[![Open Source](https://img.shields.io/badge/Open%20Source-Yes-1f6feb.svg)](https://github.com/)
+[![Responsive](https://img.shields.io/badge/Responsive-Yes-ff69b4.svg)](https://github.com/Hippolyte59/taskflow)
+[![Dark Mode](https://img.shields.io/badge/Dark%20Mode-Yes-2ea44f.svg)](https://github.com/Hippolyte59/taskflow)
+[![Accessibility](https://img.shields.io/badge/Accessibility-Considered-6f42c1.svg)](https://github.com/Hippolyte59/taskflow)
+[![Open Source](https://img.shields.io/badge/Open%20Source-Yes-1f6feb.svg)](https://github.com/Hippolyte59/taskflow)
 
 Gestionnaire de taches intelligent en HTML, CSS et JavaScript.
 TaskFlow met l'accent sur la rapidite, la clarte visuelle, et la sauvegarde locale.
