@@ -36,7 +36,7 @@
 
 body {
   margin: 0;
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   background: var(--paper);
   color: var(--ink);
   min-height: 100vh;
@@ -105,13 +105,13 @@ body.page-loaded .panel {
   background: var(--ink);
   color: var(--paper);
   font-weight: 700;
-  font-family: "Fraunces", serif;
+  font-family: "Georgia", "Times New Roman", serif;
   font-size: 20px;
   letter-spacing: 1px;
 }
 
 .hero h1 {
-  font-family: "Fraunces", serif;
+  font-family: "Georgia", "Times New Roman", serif;
   margin: 0;
   font-size: clamp(2.2rem, 3vw, 3.2rem);
 }
@@ -154,7 +154,7 @@ body.page-loaded .panel {
 .form-panel h2,
 .list-panel h2 {
   margin-top: 0;
-  font-family: "Fraunces", serif;
+  font-family: "Georgia", "Times New Roman", serif;
   font-weight: 600;
 }
 
@@ -229,11 +229,13 @@ button:active {
   overflow: hidden;
 }
 
-.ripple span {
+.ripple-circle {
   position: absolute;
+  left: 0;
+  top: 0;
   border-radius: 50%;
-  transform: scale(0);
-  animation: ripple 0.6s linear;
+  width: 1px;
+  height: 1px;
   background: var(--ripple);
   pointer-events: none;
 }
@@ -483,13 +485,3 @@ button:active {
   }
 }
 
-@keyframes ripple {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-
-.task {
-  animation: fadeInUp 0.35s ease both;
-}

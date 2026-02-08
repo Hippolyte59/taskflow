@@ -26,6 +26,7 @@ let searchTerm = "";
 let activeSort = "createdDesc";
 let editingId = null;
 let listUpdateTimer = null;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const loadTasks = () => {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -165,8 +166,22 @@ const renderTasks = () => {
   sorted.forEach((task, index) => {
     const item = document.createElement("li");
     item.className = `task ${task.completed ? "completed" : ""}`.trim();
-    item.style.animationDelay = `${index * 40}ms`;
     item.dataset.id = task.id;
+
+    if (!prefersReducedMotion) {
+      item.animate(
+        [
+          { opacity: 0, transform: "translateY(12px)" },
+          { opacity: 1, transform: "translateY(0)" },
+        ],
+        {
+          duration: 350,
+          easing: "ease",
+          fill: "both",
+          delay: index * 40,
+        }
+      );
+    }
 
     if (editingId === task.id) {
       const checklistLines = task.checklist.map((item) => item.text).join("\n");
@@ -565,15 +580,32 @@ document.addEventListener("click", (event) => {
   if (!button) return;
   const rect = button.getBoundingClientRect();
   const circle = document.createElement("span");
+  circle.className = "ripple-circle";
   const size = Math.max(rect.width, rect.height);
-  circle.style.width = `${size}px`;
-  circle.style.height = `${size}px`;
-  circle.style.left = `${event.clientX - rect.left - size / 2}px`;
-  circle.style.top = `${event.clientY - rect.top - size / 2}px`;
+  const x = event.clientX - rect.left - size / 2;
+  const y = event.clientY - rect.top - size / 2;
   button.appendChild(circle);
-  circle.addEventListener("animationend", () => {
+  if (prefersReducedMotion) {
     circle.remove();
-  });
+    return;
+  }
+  const animation = circle.animate(
+    [
+      { transform: `translate(${x}px, ${y}px) scale(0)`, opacity: 1 },
+      { transform: `translate(${x}px, ${y}px) scale(${size})`, opacity: 0 },
+    ],
+    {
+      duration: 600,
+      easing: "linear",
+    }
+  );
+  animation.finished
+    .then(() => {
+      circle.remove();
+    })
+    .catch(() => {
+      circle.remove();
+    });
 });
 
 init();
