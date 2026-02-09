@@ -1,16 +1,12 @@
 # TaskFlow
 
-[![Project](https://img.shields.io/badge/Project-TaskFlow-1f6feb.svg)](https://github.com/)
-[![Stack](https://img.shields.io/badge/Stack-HTML%20%7C%20CSS%20%7C%20JS-f28c28.svg)](https://github.com/)
-[![Storage](https://img.shields.io/badge/Storage-LocalStorage-5c6bc0.svg)](https://developer.mozilla.org/docs/Web/API/Window/localStorage)
-[![Mode](https://img.shields.io/badge/Mode-Dark%20%26%20Light-0ea5e9.svg)](https://github.com/)
-[![Status](https://img.shields.io/badge/Status-Active-22c55e.svg)](https://github.com/)
-[![UX](https://img.shields.io/badge/UX-Animations%20%26%20Micro--interactions-f97316.svg)](https://github.com/)
-[![Focus](https://img.shields.io/badge/Focus-Productivity-7c3aed.svg)](https://github.com/)
-[![Offline](https://img.shields.io/badge/Offline-Ready-14b8a6.svg)](https://github.com/)
-[![Responsive](https://img.shields.io/badge/Responsive-Yes-ec4899.svg)](https://github.com/)
-[![No Back--end](https://img.shields.io/badge/Back--end-None-64748b.svg)](https://github.com/)
-[![License](https://img.shields.io/badge/License-MIT-16a34a.svg)](LICENSE)
+[![HTML5](https://img.shields.io/badge/HTML5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)](https://html.spec.whatwg.org/)
+[![CSS3](https://img.shields.io/badge/CSS3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg?style=for-the-badge)](package.json)
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg?style=for-the-badge)](README.md)
+[![Author](https://img.shields.io/badge/Author-Hippolyte-purple.svg?style=for-the-badge)](https://github.com/hippolyte)
 
 Gestionnaire de taches intelligent en HTML, CSS et JavaScript.
 TaskFlow met l'accent sur la rapidite, la clarte visuelle, et la sauvegarde locale.
