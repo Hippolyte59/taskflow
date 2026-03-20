@@ -1,41 +1,109 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="TaskFlow 2026 is a local-first task manager with calendar views, mini-kanban, drag-and-drop, and secure browser storage." />
+    <meta name="keywords" content="task manager, todo app, calendar, kanban, drag and drop, productivity, local storage" />
+    <meta name="author" content="TaskFlow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://example.com/taskflow" />
+    <meta name="theme-color" content="#0de2c8" />
+    <meta name="application-name" content="TaskFlow 2026" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="TaskFlow 2026" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TaskFlow" />
+    <meta property="og:title" content="TaskFlow 2026 - Calendar and Mini Kanban Task Manager" />
+    <meta property="og:description" content="Plan, sort, and move tasks with month/week calendar view, mini-kanban, and drag-and-drop. Data stays in your browser." />
+    <meta property="og:url" content="https://example.com/taskflow" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="og-image.svg" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="TaskFlow 2026 dashboard preview with calendar and kanban" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TaskFlow 2026 - Calendar and Mini Kanban Task Manager" />
+    <meta name="twitter:description" content="A responsive local-first task manager with calendar, kanban, and drag-and-drop workflow." />
+    <meta name="twitter:image" content="og-image.svg" />
+    <meta name="twitter:image:alt" content="TaskFlow 2026 dashboard preview" />
+    <meta name="twitter:site" content="@taskflowapp" />
+    <meta name="twitter:creator" content="@taskflowapp" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'"
+      content="default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; media-src 'none'; worker-src 'none'; manifest-src 'none'"
     />
-    <title>TaskFlow — Gestionnaire de taches</title>
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <title>TaskFlow 2026 - Focus Workspace</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
     <div class="backdrop"></div>
-    <header class="hero">
+    <header class="hero" role="banner">
       <div class="brand">
-        <span class="logo">TF</span>
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img" aria-label="TaskFlow logo">
+            <defs>
+              <linearGradient id="logoGlow" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#0de2c8" />
+                <stop offset="100%" stop-color="#14f195" />
+              </linearGradient>
+            </defs>
+            <rect x="4" y="4" width="56" height="56" rx="16" fill="#08131f" />
+            <path
+              d="M17 37c3.3-8.5 9.1-13.5 19.2-13.5 7.8 0 12.2 3.3 15.8 8.7"
+              fill="none"
+              stroke="url(#logoGlow)"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M19 24h11M34 24h11"
+              stroke="#d7f6ee"
+              stroke-width="4"
+              stroke-linecap="round"
+            />
+            <circle cx="47" cy="24" r="3" fill="#d7f6ee" />
+          </svg>
+        </div>
         <div>
           <h1>TaskFlow</h1>
-          <p>Organisez vos taches avec style et lucidite.</p>
+          <p>New Dev 2026 task command center.</p>
         </div>
       </div>
       <div class="hero-actions">
-        <button id="themeToggle" class="ghost ripple" aria-pressed="false">
-          Mode sombre
+        <button
+          id="themeToggle"
+          class="ghost ripple"
+          aria-pressed="false"
+          aria-label="Switch color theme"
+        >
+          Dark mode
         </button>
-        <div class="stats" aria-live="polite">
-          <span id="countTotal">0</span> taches
+        <div class="stats" aria-live="polite" aria-atomic="true">
+          <div>
+            <span id="countTotal">0</span>
+            <small>Total</small>
+          </div>
+          <div>
+            <span id="countDone">0</span>
+            <small>Done</small>
+          </div>
         </div>
       </div>
     </header>
 
-    <main class="layout">
-      <section class="panel form-panel">
-        <h2>Nouvelle tache</h2>
+    <main id="mainContent" class="layout" tabindex="-1">
+      <section class="panel form-panel" aria-labelledby="createTaskHeading">
+        <h2 id="createTaskHeading">Create task</h2>
+        <p class="section-copy">Build your next sprint item in seconds.</p>
         <form id="taskForm">
           <label>
-            Titre
+            Title
             <input id="titleInput" type="text" required maxlength="80" />
           </label>
           <label>
@@ -43,58 +111,94 @@
             <textarea id="descInput" rows="3" maxlength="240"></textarea>
           </label>
           <label>
-            Etiquettes (separees par des virgules)
-            <input id="tagsInput" type="text" placeholder="ex: perso, urgent" />
+            Tags (comma separated)
+            <input id="tagsInput" type="text" placeholder="ex: feature, sprint" />
           </label>
           <label>
-            Checklist (une ligne par item)
+            Checklist (one line per item)
             <textarea id="checklistInput" rows="4"></textarea>
           </label>
           <div class="row">
             <label>
-              Priorite
+              Priority
               <select id="priorityInput">
-                <option value="low">Basse</option>
-                <option value="medium" selected>Moyenne</option>
-                <option value="high">Haute</option>
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
               </select>
             </label>
             <label>
-              Echeance
+              Due date
               <input id="dueInput" type="date" />
             </label>
           </div>
-          <button class="primary ripple" type="submit">Ajouter la tache</button>
+          <button class="primary ripple" type="submit">Add task</button>
         </form>
       </section>
 
-      <section class="panel list-panel">
+      <section class="panel list-panel" aria-labelledby="taskBoardHeading">
+        <h2 id="taskBoardHeading" class="sr-only">Task board</h2>
+        <div
+          class="progress-shell"
+          role="progressbar"
+          aria-label="Task completion"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
         <div class="toolbar">
-          <div class="filters" role="tablist">
-            <button class="filter active ripple" data-filter="all" role="tab">
-              Toutes
+          <div class="filters" role="tablist" aria-label="Task filters">
+            <button
+              id="filter-all"
+              class="filter active ripple"
+              data-filter="all"
+              role="tab"
+              aria-selected="true"
+              aria-controls="taskList"
+              tabindex="0"
+            >
+              All
             </button>
-            <button class="filter ripple" data-filter="active" role="tab">
-              En cours
+            <button
+              id="filter-active"
+              class="filter ripple"
+              data-filter="active"
+              role="tab"
+              aria-selected="false"
+              aria-controls="taskList"
+              tabindex="-1"
+            >
+              Active
             </button>
-            <button class="filter ripple" data-filter="done" role="tab">
-              Terminees
+            <button
+              id="filter-done"
+              class="filter ripple"
+              data-filter="done"
+              role="tab"
+              aria-selected="false"
+              aria-controls="taskList"
+              tabindex="-1"
+            >
+              Done
             </button>
           </div>
           <div class="controls">
             <label class="search">
-              <span>Recherche</span>
-              <input id="searchInput" type="search" placeholder="Mot-cle..." />
+              <span>Search</span>
+              <input id="searchInput" type="search" placeholder="keyword..." />
             </label>
             <label class="sort">
-              <span>Tri</span>
+              <span>Sort</span>
               <select id="sortSelect">
-                <option value="createdDesc">Creation (recent)</option>
-                <option value="createdAsc">Creation (ancien)</option>
-                <option value="dueAsc">Echeance (proche)</option>
-                <option value="dueDesc">Echeance (lointaine)</option>
-                <option value="priorityDesc">Priorite (haute)</option>
-                <option value="priorityAsc">Priorite (basse)</option>
+                <option value="manual" selected>Manual order</option>
+                <option value="createdDesc">Newest</option>
+                <option value="createdAsc">Oldest</option>
+                <option value="dueAsc">Due soon</option>
+                <option value="dueDesc">Due later</option>
+                <option value="priorityDesc">Priority high</option>
+                <option value="priorityAsc">Priority low</option>
               </select>
             </label>
             <div class="io">
@@ -108,16 +212,71 @@
             </div>
           </div>
         </div>
-        <ul id="taskList" class="task-list" aria-live="polite"></ul>
+        <section class="calendar" aria-labelledby="calendarHeading">
+          <div class="calendar-head">
+            <h3 id="calendarHeading">Calendar</h3>
+            <div class="calendar-view" role="tablist" aria-label="Calendar view mode">
+              <button id="calendarViewMonth" class="filter active ripple" type="button" role="tab" aria-selected="true">
+                Month
+              </button>
+              <button id="calendarViewWeek" class="filter ripple" type="button" role="tab" aria-selected="false">
+                Week
+              </button>
+            </div>
+            <div class="calendar-nav">
+              <button id="calendarPrev" class="ghost ripple" type="button" aria-label="Previous month">
+                Prev
+              </button>
+              <button id="calendarToday" class="ghost ripple" type="button" aria-label="Go to current month">
+                Today
+              </button>
+              <button id="calendarNext" class="ghost ripple" type="button" aria-label="Next month">
+                Next
+              </button>
+            </div>
+          </div>
+          <p id="calendarMonthLabel" class="calendar-month" aria-live="polite"></p>
+          <div class="calendar-weekdays" aria-hidden="true">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+          </div>
+          <div id="calendarGrid" class="calendar-grid" role="grid" aria-label="Task due dates"></div>
+          <p class="calendar-hint">Click a day to filter tasks by due date.</p>
+        </section>
+
+        <section class="kanban" aria-labelledby="kanbanHeading">
+          <div class="kanban-head">
+            <h3 id="kanbanHeading">Mini Kanban</h3>
+            <p>Drag cards between Active and Done columns.</p>
+          </div>
+          <div class="kanban-columns">
+            <section class="kanban-column" aria-labelledby="kanbanActiveHeading">
+              <h4 id="kanbanActiveHeading">Active</h4>
+              <ul id="kanbanActive" class="kanban-list" aria-label="Active tasks dropzone"></ul>
+            </section>
+            <section class="kanban-column" aria-labelledby="kanbanDoneHeading">
+              <h4 id="kanbanDoneHeading">Done</h4>
+              <ul id="kanbanDone" class="kanban-list" aria-label="Done tasks dropzone"></ul>
+            </section>
+          </div>
+        </section>
+        <ul
+          id="taskList"
+          class="task-list"
+          role="tabpanel"
+          aria-labelledby="filter-all"
+          aria-live="polite"
+          aria-busy="false"
+        ></ul>
         <div id="emptyState" class="empty">
-          <h3>Aucune tache a afficher</h3>
-          <p>Ajoutez votre premiere tache ou changez les filtres.</p>
+          <h3>No tasks to show</h3>
+          <p>Create your first task or change filters.</p>
         </div>
+        <p id="statusLive" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
       </section>
     </main>
 
-    <footer class="footer">
-      <p>TaskFlow garde vos taches dans votre navigateur.</p>
+    <footer class="footer" role="contentinfo">
+      <p>TaskFlow 2026 stores your workspace locally in your browser.</p>
     </footer>
 
     <script src="script.js"></script>
