@@ -335,7 +335,6 @@ const renderTasks = () => {
       descLabel.append("Description");
       const descTextarea = document.createElement("textarea");
       descTextarea.rows = 3;
-  renderKanban();
       descTextarea.dataset.edit = "description";
       descTextarea.value = task.description || "";
       descLabel.append(descTextarea);
@@ -484,6 +483,7 @@ const renderTasks = () => {
   }
   emptyState.style.display = filtered.length === 0 ? "block" : "none";
   taskList.setAttribute("aria-busy", "false");
+  renderKanban();
   renderCalendar();
 };
 
